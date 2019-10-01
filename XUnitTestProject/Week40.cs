@@ -2,11 +2,48 @@ using System;
 using Xunit;
 using Kattis.Exercises;
 using System.IO;
+using System.Collections.Generic;
 
 namespace XUnitTestProject
 {
     public class Week40
     {
+        [Fact]
+        public void TriTest()
+        {
+            var map = new Dictionary<string, string>();
+
+            //addition
+            map["5 3 8"] = "5+3=8";
+            //subtraction
+            map["5 3 2"] = "5-3=2";
+            //multiplication
+            map["5 3 15"] = "5*3=15";
+            //division
+            map["9 3 3"] = "9/3=3";
+
+
+            foreach (var item in map)
+            {
+                using (StringWriter sw = new StringWriter())
+                {
+                    Console.SetOut(sw);
+
+                    using (StringReader sr = new StringReader(
+                        string.Format(
+                            item.Key)))
+                    {
+                        Console.SetIn(sr);
+
+                        Tri.Main(null);
+
+                        string expected = item.Value + Environment.NewLine;
+
+                        Assert.Equal(expected, sw.ToString());
+                    }
+                }
+            }
+        }
         [Fact]
         public void DrmMessagesTest()
         {
