@@ -8,6 +8,27 @@ namespace XUnitTestProject
     public class Week40
     {
         [Fact]
+        public void DrmMessagesTest()
+        {
+            using(StringWriter sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+
+                using (StringReader sr = new StringReader(
+                    string.Format(
+                        "EWPGAJRB")))
+                {
+                    Console.SetIn(sr);
+
+                    DrmMessages.Main(null);
+
+                    string expected = "ABCD" + Environment.NewLine;
+
+                    Assert.Equal(expected, sw.ToString());
+                }
+            }
+        }
+        [Fact]
         public void QuickBrownFoxTest()
         {
             using (StringWriter sw = new StringWriter())
