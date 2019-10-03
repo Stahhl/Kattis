@@ -9,21 +9,53 @@ namespace XUnitTestProject
     public class Week40
     {
         [Fact]
+        public void CardboardContainerTest()
+        {
+            var tests = new Dictionary<string, string>();
+
+            tests["1"] = "6";
+            tests["2"] = "10";
+            tests["3"] = "14";
+            tests["4"] = "16";
+            //tests["5913"] = "2790";
+
+            foreach (var item in tests)
+            {
+                using (StringWriter sw = new StringWriter())
+                {
+                    Console.SetOut(sw);
+
+                    using (StringReader sr = new StringReader(
+                        string.Format(
+                            item.Key)))
+                    {
+                        Console.SetIn(sr);
+
+                        CardboardContainer.Main(null);
+
+                        string expected = item.Value + Environment.NewLine;
+
+                        Assert.Equal(expected, sw.ToString());
+                    }
+                }
+            }
+        }
+        [Fact]
         public void TriTest()
         {
-            var map = new Dictionary<string, string>();
+            var tests = new Dictionary<string, string>();
 
             //addition
-            map["5 3 8"] = "5+3=8";
+            tests["5 3 8"] = "5+3=8";
             //subtraction
-            map["5 3 2"] = "5-3=2";
+            tests["5 3 2"] = "5-3=2";
             //multiplication
-            map["5 3 15"] = "5*3=15";
+            tests["5 3 15"] = "5*3=15";
             //division
-            map["9 3 3"] = "9/3=3";
+            tests["9 3 3"] = "9/3=3";
 
 
-            foreach (var item in map)
+            foreach (var item in tests)
             {
                 using (StringWriter sw = new StringWriter())
                 {
